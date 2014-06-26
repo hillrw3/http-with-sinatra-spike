@@ -4,7 +4,7 @@ class MyApp < Sinatra::Application
 
   def initialize
     super
-    @items = ["item 1", "item 2", "item 3"]
+    @items = ["Channa Masala", "Chicken Tikka Masala", "Saag Paneer"]
   end
 
   get '/' do
@@ -13,7 +13,12 @@ class MyApp < Sinatra::Application
 
 
   get '/items' do
-    erb :items, :locals =>{:item_count => @items.length}
+    filter = params[:filter]
+    new_ary = @items
+    unless filter == nil
+      new_ary = @items.select{|item| item.downcase.include?(filter.downcase)}
+    end
+    erb :items, :locals =>{:items => new_ary}
   end
 
   get '/items/new' do

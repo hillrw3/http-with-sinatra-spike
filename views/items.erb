@@ -1,7 +1,9 @@
 <a href="/items/new">New Items!</a>
 
 <ul>
-  <% @items.each_with_index do |item, index | %>
+  <% items.each_with_index do |item, index | %>
     <li><a href="/items/<%= index %>"><%= item %></a></li>
   <%end%>
+
+
 </ul>

@@ -21,14 +21,25 @@ class MyApp < Sinatra::Application
     erb :items, :locals =>{:items => new_ary}
   end
 
+  post '/items' do
+    @items.push(params[:newitem])
+    redirect back
+  end
+
   get '/items/new' do
     erb :new
   end
 
   get '/items/:id' do
     id = params[:id]
-    "This item's id is #{id.to_i + 1}"
+    erb :id, :locals => {:id => id, :item_name => @items[id.to_i]}
   end
+
+  get '/items/:id/edit' do
+    id = params[:id]
+    erb :edit, :locals => {:id => id, :item_name => @items[id.to_i]}
+  end
+
 
 
   run! if app_file == $0
